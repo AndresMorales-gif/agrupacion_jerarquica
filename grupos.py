@@ -25,7 +25,6 @@ class Grupo(object):
 			x2, y2 = self.elemento_2.get_centro()
 		else:
 			x2, y2 = self.elemento_2.get_coordenada()
-		print(f'Grupo {self._nombre} tiene {x1}, {x2} y {y1}, {y2}')
 		self.x = (x1+x2) / 2
 		self.y = (y1+y2) / 2
 

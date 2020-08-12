@@ -1,20 +1,25 @@
 import random
 import math
 import time
+import logging
+logging.basicConfig(level=logging.INFO)
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from coordenada import Coordenada
 from grupos import Grupo
 
+logger = logging.getLogger(__name__)
 
 #Crear una coleccion de objetos Coordenada con valor aletorio entre 0 y 100
 def crear_coordenadas(coordenadas_numero):
+	logger.info('Creando coordenadas')
 	coordenadas = []
 	for i in range(coordenadas_numero):
 		coordenada = Coordenada(random.randrange(100), random.randrange(100), i)
 		coordenadas.append(coordenada)
 	return coordenadas
 
+#Funcion para graficar las agrupaciones que se hacen
 def graficar(coordenadas, ax):
 	ax.cla()
 	ax.set_xlim(0.0, 100.0)
@@ -22,7 +27,9 @@ def graficar(coordenadas, ax):
 	ax.scatter(coordenadas[0], coordenadas[1], marker='o', s=coordenadas[2], c=coordenadas[3])
 	time.sleep(1)
 
+#Guardamos los datos para graficar en un arreglo, se guardan para realizar una grafica dinamica 
 def agregar_grafica(coordenadas):
+	logger.info('Agreganodo datos para graficar')
 	datos = []
 	x = [coordenada.x for coordenada in coordenadas]
 	y = [coordenada.y for coordenada in coordenadas]
@@ -38,6 +45,7 @@ def agregar_grafica(coordenadas):
 def medir_distancia(x, y):
 	return math.sqrt((x**2)+(y**2))
 
+#Realiza comparacion cuando el primer elemento es un grupo
 def comparar_grupo(elemento_g, elemento_2):
 	distancia_1 = comparar(elemento_g.elemento_1, elemento_2)
 	distancia_2 = comparar(elemento_g.elemento_2, elemento_2)
@@ -93,14 +101,13 @@ def menor_distancia(elementos):
 #Formar grupos de elementos hasta que solo quede un elemento
 def agrupar(elementos, i):
 	elemento_1, elemento_2 = menor_distancia(elementos)
-	print(f'Haremos grupo de {elemento_1.get_nombre()} y {elemento_2.get_nombre()}') 
-	grupo = Grupo(elemento_1, elemento_2, i)	
-	print(grupo.get_nombre())
+	logger.info(f'Haremos grupo de {elemento_1.get_nombre()} y {elemento_2.get_nombre()}')	
+	grupo = Grupo(elemento_1, elemento_2, i)
+	logger.info(f'Grupo creado {grupo.get_nombre()}')	
 	elementos.remove(elemento_1)
 	elementos.remove(elemento_2)
 	elementos.append(grupo)
-	agregar_grafica(elementos)
-	print('_'*50)
+	agregar_grafica(elementos)	
 	if (len(elementos)>1):
 		elementos = agrupar(elementos, i+1)
 	
@@ -108,10 +115,11 @@ def agrupar(elementos, i):
 
 #Funcion principal
 def main(coordenadas_numero):
+	logger.info(f'Has seleccionado {coordenadas_numero} coordenadas')
 	coordenadas = crear_coordenadas(coordenadas_numero)
 	agregar_grafica(coordenadas)
 	elementos = agrupar(coordenadas, 0)
-	print(f'El grupo final es {elementos[0].get_nombre()}')
+	logger.info(f'El grupo final es {elementos[0].get_nombre()}')
 	fig, ax = plt.subplots()	
 	ax.set_xlim(0.0, 100.0)
 	ax.set_ylim(0.0, 100.0)		
@@ -120,7 +128,7 @@ def main(coordenadas_numero):
 	
 
 
-
+#Arreglo y diccionario como estructuras de datos glogales
 frames_graf = []
 dic_distancias = {}
 if __name__=="__main__":

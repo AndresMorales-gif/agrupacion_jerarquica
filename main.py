@@ -1,5 +1,6 @@
 import random
 import math
+import matplotlib.pyplot as plt
 from coordenada import Coordenada
 from grupos import Grupo
 
@@ -11,6 +12,12 @@ def crear_coordenadas(coordenadas_numero):
 		coordenada = Coordenada(random.randrange(100), random.randrange(100), i)
 		coordenadas.append(coordenada)
 	return coordenadas
+
+def graficar(coordenadas):
+	x = [coordenada.x for coordenada in coordenadas]
+	y = [coordenada.y for coordenada in coordenadas]
+	plt.plot(x,y, 'b.')
+	plt.show()
 
 #Medir distancia entre coordenadas
 def medir_distancia(x, y):
@@ -48,7 +55,7 @@ def comparar(elemento_1, elemento_2):
 	dic_distancias[nombre] = medir_distancia(elemento_1.x - elemento_2.x, elemento_1.y - elemento_2.y)	
 	return dic_distancias[nombre]	
 	
-
+#De la lista elementos, cuales son los dos elementos que tienen la menor distancia entre si
 def menor_distancia(elementos):
 	distancia_menor = None
 	elemento_1 = None
@@ -68,6 +75,7 @@ def menor_distancia(elementos):
 				elemento_2 = elementos[j]
 	return (elemento_1, elemento_2)			
 
+#Formar grupos de elementos hasta que solo quede un elemento
 def agrupar(elementos, i):
 	elemento_1, elemento_2 = menor_distancia(elementos)
 	print(f'Haremos grupo de {elemento_1.get_nombre()} y {elemento_2.get_nombre()}') 
@@ -76,14 +84,17 @@ def agrupar(elementos, i):
 	elementos.remove(elemento_1)
 	elementos.remove(elemento_2)
 	elementos.append(grupo)
+	graficar(elementos)
 	print('_'*50)
 	if (len(elementos)>1):
 		elementos = agrupar(elementos, i+1)
 	
 	return elementos	
 
+#Funcion principal
 def main(coordenadas_numero):
 	coordenadas = crear_coordenadas(coordenadas_numero)
+	graficar(coordenadas)
 	elementos = agrupar(coordenadas, 0)
 	print(f'El grupo final es {elementos[0].get_nombre()}')
 

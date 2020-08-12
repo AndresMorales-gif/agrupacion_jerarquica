@@ -1,5 +1,5 @@
 class Grupo(object):
-	def __init__(self, elemento_1, elemento_2, nombre)
+	def __init__(self, elemento_1, elemento_2, nombre):
 		self.elemento_1 = elemento_1
 		self.elemento_2 = elemento_2
 		self._nombre = 'g' + str(nombre)

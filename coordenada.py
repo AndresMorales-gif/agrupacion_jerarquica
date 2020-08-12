@@ -3,6 +3,8 @@ class Coordenada(object):
 		self._nombre = 'c' + str(nombre)
 		self.x = x
 		self.y = y
+		self.color = 'blue'
+		self.nivel = 1
 		
 	def get_coordenada(self):
 		return (self.x, self.y)

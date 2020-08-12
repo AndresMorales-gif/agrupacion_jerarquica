@@ -1,6 +1,8 @@
 import random
 import math
+import time
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from coordenada import Coordenada
 from grupos import Grupo
 
@@ -13,11 +15,24 @@ def crear_coordenadas(coordenadas_numero):
 		coordenadas.append(coordenada)
 	return coordenadas
 
-def graficar(coordenadas):
+def graficar(coordenadas, ax):
+	ax.cla()
+	ax.set_xlim(0.0, 100.0)
+	ax.set_ylim(0.0, 100.0)
+	ax.scatter(coordenadas[0], coordenadas[1], marker='o', s=coordenadas[2], c=coordenadas[3])
+	time.sleep(1)
+
+def agregar_grafica(coordenadas):
+	datos = []
 	x = [coordenada.x for coordenada in coordenadas]
 	y = [coordenada.y for coordenada in coordenadas]
-	plt.plot(x,y, 'b.')
-	plt.show()
+	s = [coordenada.nivel*150 for coordenada in coordenadas]
+	c = [coordenada.color for coordenada in coordenadas]
+	datos.append(x)
+	datos.append(y)
+	datos.append(s)
+	datos.append(c)
+	frames_graf.append(datos)	
 
 #Medir distancia entre coordenadas
 def medir_distancia(x, y):
@@ -84,7 +99,7 @@ def agrupar(elementos, i):
 	elementos.remove(elemento_1)
 	elementos.remove(elemento_2)
 	elementos.append(grupo)
-	graficar(elementos)
+	agregar_grafica(elementos)
 	print('_'*50)
 	if (len(elementos)>1):
 		elementos = agrupar(elementos, i+1)
@@ -94,13 +109,19 @@ def agrupar(elementos, i):
 #Funcion principal
 def main(coordenadas_numero):
 	coordenadas = crear_coordenadas(coordenadas_numero)
-	graficar(coordenadas)
+	agregar_grafica(coordenadas)
 	elementos = agrupar(coordenadas, 0)
 	print(f'El grupo final es {elementos[0].get_nombre()}')
+	fig, ax = plt.subplots()	
+	ax.set_xlim(0.0, 100.0)
+	ax.set_ylim(0.0, 100.0)		
+	animation = FuncAnimation(fig, func=graficar, frames=frames_graf, fargs=(ax,))
+	plt.show()
+	
 
 
 
-
+frames_graf = []
 dic_distancias = {}
 if __name__=="__main__":
 	coordenadas_numero = int(input("Por favor digite cuantas coordenadas quiere tener "))

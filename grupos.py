@@ -3,6 +3,7 @@ class Grupo(object):
 		self.elemento_1 = elemento_1
 		self.elemento_2 = elemento_2
 		self._nombre = 'g' + str(nombre)
+		self.color = 'red'
 		self._hallar_centro()
 		self._hallar_nivel()
 
@@ -23,12 +24,13 @@ class Grupo(object):
 		if isinstance(self.elemento_2, Grupo):
 			x2, y2 = self.elemento_2.get_centro()
 		else:
-			x2, y2 = self.elemento_1.get_coordenada()
+			x2, y2 = self.elemento_2.get_coordenada()
+		print(f'Grupo {self._nombre} tiene {x1}, {x2} y {y1}, {y2}')
 		self.x = (x1+x2) / 2
 		self.y = (y1+y2) / 2
 
 	def _hallar_nivel(self):
-		self.nivel = 1
+		self.nivel = 2
 		if isinstance(self.elemento_1, Grupo):
 			self.nivel += self.elemento_1.nivel		
 		if isinstance(self.elemento_2, Grupo):

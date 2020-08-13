@@ -7,6 +7,6 @@ El algoritmo presentado realiza agrupamientos jerárquicos según la cercanía e
  - Para aprovechar cálculos ya realizados se usa un diccionario que guarda el valor de los cálculos de distancia entre grupos o coordenadas.
  - Se guardan los datos de cada grupo realizado, estos se usaran para realizar una gráfica animada.
 
-![Inicio de agrupacion](https://github.com/AndresMorales-gif/agrupacion_jerarquica/imgReadme/inicio_agrupamiento.png)
-![Agrupamiento](AndresMorales-gif/agrupacion_jerarquica/imgReadme/agrupamiento.png)
-![Terminando agrupamiento](AndresMorales-gif/agrupacion_jerarquica/imgReadme/terminando_agrupamiento.png)
+![Inicio de agrupacion](https://github.com/AndresMorales-gif/agrupacion_jerarquica/blob/master/imgReadme/inicio_agrupamiento.png)
+![Agrupamiento](https://github.com/AndresMorales-gif/agrupacion_jerarquica/blob/master/imgReadme/agrupamiento.png)
+![Terminando agrupamiento](https://github.com/AndresMorales-gif/agrupacion_jerarquica/blob/master/imgReadme/terminando_agrupamiento.png)

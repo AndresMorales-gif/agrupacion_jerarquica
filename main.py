@@ -25,15 +25,15 @@ def graficar(coordenadas, ax):
 	ax.set_xlim(0.0, 100.0)
 	ax.set_ylim(0.0, 100.0)
 	ax.scatter(coordenadas[0], coordenadas[1], marker='o', s=coordenadas[2], c=coordenadas[3])
-	time.sleep(1)
+	time.sleep(0.2)
 
 #Guardamos los datos para graficar en un arreglo, se guardan para realizar una grafica dinamica 
 def agregar_grafica(coordenadas):
-	logger.info('Agreganodo datos para graficar')
+	logger.info('Agregando datos para graficar')
 	datos = []
 	x = [coordenada.x for coordenada in coordenadas]
 	y = [coordenada.y for coordenada in coordenadas]
-	s = [coordenada.nivel*150 for coordenada in coordenadas]
+	s = [coordenada.nivel*100 for coordenada in coordenadas]
 	c = [coordenada.color for coordenada in coordenadas]
 	datos.append(x)
 	datos.append(y)
